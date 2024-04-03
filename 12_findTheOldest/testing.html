@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the Oldest</title>
+</head>
+<body>
+
+<script>
+const people = [
+    {
+    name: "Carly",
+    yearOfBirth: 1942,
+    yearOfDeath: 1970,
+    },
+    {
+    name: "Ray",
+    yearOfBirth: 1962,
+    yearOfDeath: 2011,
+    },
+    {
+    name: "Jane",
+    yearOfBirth: 1912,
+    yearOfDeath: 1941,
+    },
+];
+
+// Calculate the age of everyone 
+// Add age variable into each object 
+// return object of oldest person
+
+// FINAL ONE!
+const findTheOldest = function(array) {
+    let currentYear;
+	for (let i = 0; i < array.length; i++) {
+		if (!array[i].yearOfDeath) {
+			let currentDate = new Date();
+			currentYear = currentDate.getFullYear();
+			array[i].yearOfDeath = currentYear;
+		}
+	};
+	
+	for (let i = 0; i < array.length; i++) {
+		let age = array[i].yearOfDeath - array[i].yearOfBirth;
+		array[i].age = age;
+	}
+	let sorted = array.sort((a, b) => b.age - a.age);
+	return sorted[0];
+};
+
+console.log(findTheOldest(people).name);
+
+
+const wrongFunctionParameter = function(array) {
+    let currentYear;
+    for (let i = 0; i < array.length; i++) {
+        if (!array[i].yearOfDeath) {
+            let currentDate = new Date();
+            currentYear = currentDate.getFullYear();
+            array[i].yearOfDeath = currentYear;
+        }
+    }
+
+    let reduced = array.reduce((obj, person) => {
+        let age = person.yearOfDeath - person.yearOfBirth;
+        obj[person.name] = age;
+        return obj;
+    }, {});
+    const oldest = Object.keys(reduced).reduce((a, b) => reduced[a] > reduced[b] ? a : b);
+    return oldest;
+};
+
+
+let age = people.map((person) => {
+	return person.yearOfDeath - person.yearOfBirth;
+});
+// console.log(age);
+
+let reduced = people.reduce((obj, person) => {
+    let age = person.yearOfDeath - person.yearOfBirth;
+    obj[person.name] = age;
+    return obj;
+}, {});
+
+// console.log(reduced);
+
+const oldest = Object.keys(reduced).reduce((a, b) => reduced[a] > reduced[b] ? a : b);
+
+// console.log(oldest);
+
+</script>
+</body>
+</html>
